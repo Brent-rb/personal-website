@@ -1,0 +1,14 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.webgl_demo {
+    margin-top: 2rem;
+    flex: 1;
+    max-height: 80vh;
+    background-color: aquamarine;
+}
