@@ -8,6 +8,7 @@ export interface Message {
 
 export class WebGlLog {
 	private static log = new Subject<Message>()
+	private static ms = new Subject<number>()
 
 	public static info(text: string) {
 		this.log.next({
@@ -33,7 +34,15 @@ export class WebGlLog {
 		})
 	}
 
-	public static observer() {
+	public static renderMs(ms: number) {
+		this.ms.next(ms)
+	}
+
+	public static logObserver() {
 		return this.log.asObservable()
+	}
+
+	public static renderMsObserver() {
+		return this.ms.asObservable()
 	}
 }

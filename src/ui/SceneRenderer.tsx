@@ -86,7 +86,7 @@ export const SceneRenderer = forwardRef<HTMLDivElement, HelloWorldSceneProps>(
 			const scene = onGlContext(canvas, gl)
 			sceneRef.current = scene
 
-			scene.run()
+			scene.start()
 
 			return () => scene.stop()
 		})

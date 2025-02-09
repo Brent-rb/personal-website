@@ -3,15 +3,15 @@ import { getGlErrorString } from "../utils/gl"
 import { WebGlLog } from "./WebGlLog"
 
 export class Shader {
-	private _name?: string
-	private _type: number
-	private _source: string
-	public _glShader: WebGLShader | null = null
+	private name?: string
+	private type: number
+	private source: string
+	public glShader: WebGLShader | null = null
 
 	constructor(protected gl: WebGL2RenderingContext, type: number, source: string, name?: string) {
-		this._source = source
-		this._type = type
-		this._name = name;
+		this.source = source
+		this.type = type
+		this.name = name;
 	}
 
 	create() {
@@ -20,37 +20,37 @@ export class Shader {
 	}
 
 	destroy() {
-		if (!this._glShader) {
+		if (!this.glShader) {
 			return
 		}
 
-		this.gl.deleteShader(this._glShader)
-		this._glShader = null
+		this.gl.deleteShader(this.glShader)
+		this.glShader = null
 	}
 
 	private loadSource() {
-		if (this._source) {
+		if (this.source) {
 			return
 		}
 
-		if (!this._source) {
+		if (!this.source) {
 			throw new Error(
-				`[ScriptShader][load-source-error][${this._name}]`,
+				`[ScriptShader][load-source-error][${this.name}]`,
 			)
 		}
 	}
 
 	private compile() {
-		if (this._glShader) {
+		if (this.glShader) {
 			return
 		}
 
-		const shader = this.gl.createShader(this._type)
+		const shader = this.gl.createShader(this.type)
 		if (!shader) {
 			throw new ShaderCreationError(getGlErrorString(this.gl) ?? "Unknown")
 		}
 
-		this.gl.shaderSource(shader, this._source)
+		this.gl.shaderSource(shader, this.source)
 		this.gl.compileShader(shader)
 
 		const success = this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)
@@ -59,7 +59,7 @@ export class Shader {
 			throw new ShaderCreationError(error ?? "Unknown");
 		}
 
-		WebGlLog.info(`${this._name} compiled`)
-		this._glShader = shader;
+		WebGlLog.info(`${this.name} compiled`)
+		this.glShader = shader;
 	}
 }

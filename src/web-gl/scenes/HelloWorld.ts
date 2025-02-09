@@ -9,15 +9,21 @@ export class HelloWorldScene extends Scene {
 		this.program = new HelloWorldProgram(gl)
 	}
 
-	run(): void {
-		this.program.run()
+	start(): void {
+		this.program.load()
+		this.startRenderLoop()
+	}
+
+	render(): void {
+		this.program.render()
 	}
 
 	stop(): void {
+		this.stopRenderLoop()
 		this.program.destroy()
 	}
 
 	onResize(): void {
-		this.program.run()
+		this.program.load()
 	}
 }

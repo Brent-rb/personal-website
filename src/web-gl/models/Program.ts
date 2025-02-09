@@ -5,6 +5,8 @@ import { WebGlLog } from "./WebGlLog"
 export abstract class Program {
 	protected shaderProgram: ShaderProgram
 	protected renderables: Renderable[] = []
+	
+	private isRendering = false
 
 	constructor(protected gl: WebGL2RenderingContext, shaderProgram: ShaderProgram) {
 		this.shaderProgram = shaderProgram
@@ -27,16 +29,24 @@ export abstract class Program {
 	}
 
 	public render() {
-		const startTime = Date.now()
-		const gl = this.shaderProgram.getGl()
-		gl.clearColor(1.0, 1.0, 1.0, 1.0)
+		if (this.isRendering) {
+			return;
+		}
+		this.isRendering = true
+
+		const startTime = window.performance.now() / 1000
+
 		this.shaderProgram.use()
+		this.gl.clear(this.gl.COLOR_BUFFER_BIT)
 		for (const renderable of this.renderables) {
 			renderable.render()
 		}
-		const endTime = Date.now()
-		const ms = endTime - startTime
-		WebGlLog.info(`render took ${ms}ms`)
+
+		const endTime = window.performance.now() / 1000
+		const ms = (endTime - startTime)
+		WebGlLog.renderMs(ms)
+
+		this.isRendering = false
 	}
 
 	public clearRenderables() {

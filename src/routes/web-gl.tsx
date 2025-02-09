@@ -3,7 +3,7 @@ import { SceneRenderer } from "../ui/SceneRenderer"
 import { HelloWorldScene } from "../web-gl/scenes/HelloWorld"
 
 import "./web-gl.css"
-import { Button, ComboboxItem, Select, Title } from "@mantine/core"
+import { Button, ComboboxItem, em, Select, Text, Title } from "@mantine/core"
 import { useMemo, useState } from "react"
 import { useFullscreen } from "@mantine/hooks"
 import { WebGlLogBox } from "../ui/LogBox"
@@ -17,7 +17,8 @@ const scenes = new Map([
 		"squares",
 		{
 			value: "squares",
-			label: "Squares (Hello World)",
+			label: "Hello World",
+			description: "This scene is the equivalent to Hello World for graphics.\nIt has a rendering loop, it can render triangles and squares.\n The triangles are rendered using a simple vertex buffer, the squares are rendered using an Element Buffer Object so they have indices on top vertices. I added movement based on the color of the vertex to make it more interesting.",
 			scene: (canvas: HTMLCanvasElement, gl: WebGL2RenderingContext) =>
 				new HelloWorldScene(canvas, gl),
 		},
@@ -57,6 +58,9 @@ function RouteComponent() {
 					defaultValue={'squares'}
 				/>
 				<Button mt={12} onClick={toggle}>Toggle Fullscreen</Button>
+				<Text mt={em(8)}>
+					{scenes.get(selectedScene?.value ?? '')?.description}
+				</Text>
 				<div className="spacer" />
 				<div className="logbox-container">
 					<WebGlLogBox />
