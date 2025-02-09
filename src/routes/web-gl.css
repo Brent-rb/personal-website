@@ -1,0 +1,27 @@
+.webgl-container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.webgl-sidebar {
+    width: 20em;
+    padding: 1em;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.webgl-logbox {
+
+}
+
+.webgl-canvas {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    padding: 0.5em;
+    overflow: hidden;
+}

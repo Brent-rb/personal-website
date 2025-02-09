@@ -1,0 +1,39 @@
+.app-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-container {
+    width: 36rem;
+    -webkit-box-shadow: 6px 0px 14px 0px rgba(0,0,0,0.30);
+    -moz-box-shadow: 6px 0px 14px 0px rgba(0,0,0,0.30);
+    box-shadow: 6px 0px 14px 0px rgba(0,0,0,0.30);
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.info-container {
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.outline-sm {
+    outline: 5px solid var(--mantine-color-primary-red-7)
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    padding: 2em;
+    gap: 0.5em;
+    justify-content: space-around;
+}
