@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { SceneRenderer } from "../ui/SceneRenderer"
-import { HelloWorld } from "../web-gl/scenes/hello_world/HelloWorld"
+import { HelloWorldScene } from "../web-gl/scenes/HelloWorld"
 
 import "./web-gl.css"
 import { Button, ComboboxItem, Select, Title } from "@mantine/core"
 import { useMemo, useState } from "react"
 import { useFullscreen } from "@mantine/hooks"
+import { WebGlLogBox } from "../ui/LogBox"
 
 export const Route = createFileRoute("/web-gl")({
 	component: RouteComponent,
@@ -17,8 +18,8 @@ const scenes = new Map([
 		{
 			value: "squares",
 			label: "Squares (Hello World)",
-			scene: (canvas: HTMLCanvasElement, gl: WebGLRenderingContext) =>
-				new HelloWorld(canvas, gl),
+			scene: (canvas: HTMLCanvasElement, gl: WebGL2RenderingContext) =>
+				new HelloWorldScene(canvas, gl),
 		},
 	],
 ])
@@ -56,6 +57,10 @@ function RouteComponent() {
 					defaultValue={'squares'}
 				/>
 				<Button mt={12} onClick={toggle}>Toggle Fullscreen</Button>
+				<div className="spacer" />
+				<div className="logbox-container">
+					<WebGlLogBox />
+				</div>
 			</div>
 			<div className="webgl-canvas">
 				{sceneCreator && (

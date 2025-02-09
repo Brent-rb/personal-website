@@ -1,15 +1,14 @@
 import { ShaderCreationError } from "../errors/ShaderCreation"
-import { GlModel } from "./GlModel"
+import { getGlErrorString } from "../utils/gl"
+import { WebGlLog } from "./WebGlLog"
 
-export class ScriptShader extends GlModel {
+export class Shader {
 	private _name?: string
 	private _type: number
 	private _source: string
 	public _glShader: WebGLShader | null = null
 
-	constructor(gl: WebGLRenderingContext, type: number, source: string, name?: string) {
-		super(gl);
-
+	constructor(protected gl: WebGL2RenderingContext, type: number, source: string, name?: string) {
 		this._source = source
 		this._type = type
 		this._name = name;
@@ -48,7 +47,7 @@ export class ScriptShader extends GlModel {
 
 		const shader = this.gl.createShader(this._type)
 		if (!shader) {
-			throw new ShaderCreationError(this.getGlError() ?? "Unknown")
+			throw new ShaderCreationError(getGlErrorString(this.gl) ?? "Unknown")
 		}
 
 		this.gl.shaderSource(shader, this._source)
@@ -60,7 +59,7 @@ export class ScriptShader extends GlModel {
 			throw new ShaderCreationError(error ?? "Unknown");
 		}
 
-		console.log(`[createShader][${this._name}] compiled`)
+		WebGlLog.info(`${this._name} compiled`)
 		this._glShader = shader;
 	}
 }

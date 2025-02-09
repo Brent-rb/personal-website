@@ -1,26 +1,23 @@
 import { InvalidDataError } from "../errors/InvalidData"
-import { GlModel } from "./GlModel"
-import { ScriptShader } from "./ScriptShader"
+import { Shader } from "./Shader"
+import { WebGlLog } from "./WebGlLog"
 
-export class ShaderProgram extends GlModel {
-	public shaders: ScriptShader[] = []
+export class ShaderProgram {
+	public shaders: Shader[] = []
 
 	private _glProgram: WebGLProgram | null = null
+	private _attribLocations = new Map<string, GLint>()
+	private _uniformLocations = new Map<string, WebGLUniformLocation>()
 
-	constructor(gl: WebGLRenderingContext, ...shaders: ScriptShader[]) {
-		super(gl)
+	constructor(protected gl: WebGL2RenderingContext, ...shaders: Shader[]) {
 		this.shaders = shaders
 	}
 
-	_assertGlProgram() {
-		if (!this._glProgram) {
-			throw new InvalidDataError("gl program", this._glProgram)
-		}
-
-		return this._glProgram
+	public getGl() {
+		return this.gl;
 	}
 
-	create() {
+	public load() {
 		if (this._glProgram) {
 			return
 		}
@@ -34,35 +31,56 @@ export class ShaderProgram extends GlModel {
 		this.gl.linkProgram(this._glProgram)
 
 		const success = this.gl.getProgramParameter(this._glProgram, this.gl.LINK_STATUS)
-		if (success) {
-			console.log(`[ShaderProgram][program-created]`)
-			return
+		if (!success) {
+			const error = this.gl.getProgramInfoLog(this._glProgram)
+			this.destroy()
+
+			WebGlLog.error(error ?? 'Unknown error')
+			throw new Error(`[ShaderProgram][program-create-error] ${error}`)
 		}
 
-		const error = this.gl.getProgramInfoLog(this._glProgram)
-		this.destroy()
-
-		throw new Error(`[ShaderProgram][program-create-error] ${error}`)
+		WebGlLog.info(`program created`)
 	}
 
-	use() {
+	public use() {
 		this.gl.useProgram(this._glProgram)
 	}
 
-	destroy() {
+	public destroy() {
 		this.gl.deleteProgram(this._glProgram)
 		this._glProgram = null
 	}
 
-	getAttribLocation(name: string): GLint {
-		return this.gl.getAttribLocation(this._assertGlProgram(), name)
+	public getAttribLocation(name: string): GLint {
+		if (!this._attribLocations.has(name)) {
+			this._attribLocations.set(name, this.gl.getAttribLocation(this.getGlProgramAssert(), name))
+		}
+
+		return this._attribLocations.get(name)!
 	}
 
-	getUniformLocation(name: string) {
-		return this.gl.getUniformLocation(this._assertGlProgram(), name)
+	public getUniformLocation(name: string) {
+		if (!this._uniformLocations.has(name)) {
+			const uniformLocation = this.gl.getUniformLocation(this.getGlProgramAssert(), name)
+			if (!uniformLocation) {
+				throw new InvalidDataError(`uniform location ${name}`, uniformLocation)
+			}
+
+			this._uniformLocations.set(name, uniformLocation)
+		}
+
+		return this._uniformLocations.get(name)!
 	}
 
-	setUniform2f(location: WebGLUniformLocation, x: number, y: number) {
+	public setUniform2f(location: WebGLUniformLocation, x: number, y: number) {
 		this.gl.uniform2f(location, x, y)
+	}
+
+	private getGlProgramAssert() {
+		if (!this._glProgram) {
+			throw new InvalidDataError("gl program", this._glProgram)
+		}
+
+		return this._glProgram
 	}
 }

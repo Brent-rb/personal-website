@@ -12,7 +12,7 @@ import { useDebouncedCallback } from "@mantine/hooks"
 interface HelloWorldSceneProps {
 	onGlContext: (
 		canvas: HTMLCanvasElement,
-		gl: WebGLRenderingContext
+		gl: WebGL2RenderingContext
 	) => GlScene
 
 	aspectRatio?: number
@@ -77,7 +77,7 @@ export const SceneRenderer = forwardRef<HTMLDivElement, HelloWorldSceneProps>(
 				return
 			}
 
-			const gl = canvas.getContext("webgl")
+			const gl = canvas.getContext("webgl2")
 			if (!gl) {
 				console.warn("Gl is null")
 				return
@@ -90,10 +90,6 @@ export const SceneRenderer = forwardRef<HTMLDivElement, HelloWorldSceneProps>(
 
 			return () => scene.stop()
 		})
-
-		useEffect(() => {
-			console.log(`[SceneRenderer] ${width}x${height}`)
-		}, [width, height])
 
 		useEffect(() => {
 			if (!containerRef.current) return

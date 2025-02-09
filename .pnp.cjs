@@ -54,8 +54,10 @@ const RAW_RUNTIME_STATE =
           ["postcss-simple-vars", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:7.0.1"],\
           ["react", "npm:19.0.0"],\
           ["react-dom", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:19.0.0"],\
+          ["rxjs", "npm:7.8.1"],\
           ["typescript", "patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:8.23.0"],\
+          ["uuid", "npm:11.0.5"],\
           ["vite", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:6.1.0"]\
         ],\
         "linkType": "SOFT"\
@@ -4174,8 +4176,10 @@ const RAW_RUNTIME_STATE =
           ["postcss-simple-vars", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:7.0.1"],\
           ["react", "npm:19.0.0"],\
           ["react-dom", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:19.0.0"],\
+          ["rxjs", "npm:7.8.1"],\
           ["typescript", "patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:8.23.0"],\
+          ["uuid", "npm:11.0.5"],\
           ["vite", "virtual:f6ef45ec486f599a79987771d588d72d336b098870f2065886a4a89fc0952accd456614cd0047852c48947b8ade5e9287cb58410cc41c007ebf9ffe23fa92ef0#npm:6.1.0"]\
         ],\
         "linkType": "SOFT"\
@@ -4708,6 +4712,16 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["run-parallel", "npm:1.2.0"],\
           ["queue-microtask", "npm:1.2.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["rxjs", [\
+      ["npm:7.8.1", {\
+        "packageLocation": "../../.yarn/berry/cache/rxjs-npm-7.8.1-41c443a75b-10c0.zip/node_modules/rxjs/",\
+        "packageDependencies": [\
+          ["rxjs", "npm:7.8.1"],\
+          ["tslib", "npm:2.8.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5291,6 +5305,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/util-deprecate-npm-1.0.2-e3fe1a219c-10c0.zip/node_modules/util-deprecate/",\
         "packageDependencies": [\
           ["util-deprecate", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["uuid", [\
+      ["npm:11.0.5", {\
+        "packageLocation": "../../.yarn/berry/cache/uuid-npm-11.0.5-685b7c1023-10c0.zip/node_modules/uuid/",\
+        "packageDependencies": [\
+          ["uuid", "npm:11.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\

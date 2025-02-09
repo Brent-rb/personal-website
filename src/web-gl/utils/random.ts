@@ -18,23 +18,3 @@ export function randomColorArray(size: number) {
 
 	return colors
 }
-
-export function randomSquareArray(radiusMin: number, radiusMax: number, canvasWidth: number, canvasHeight: number) {
-	const radius = randomIntBetween(radiusMin, radiusMax)
-	const centerX = randomIntBetween(0, canvasWidth)
-	const centerY = randomIntBetween(0, canvasHeight)
-	return [
-		centerX - radius,
-		centerY + radius,
-		centerX + radius,
-		centerY + radius,
-		centerX - radius,
-		centerY - radius,
-		centerX - radius,
-		centerY - radius,
-		centerX + radius,
-		centerY + radius,
-		centerX + radius,
-		centerY - radius,
-	]
-}
